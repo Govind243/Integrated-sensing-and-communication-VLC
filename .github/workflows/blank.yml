@@ -1,0 +1,22 @@
+name: DF-VLS Notebook Check
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notebook-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - run: |
+          pip install jupyter nbconvert numpy pandas matplotlib scikit-learn
+
+      - run: |
+          jupyter nbconvert --to notebook --execute DF_VLS.ipynb
